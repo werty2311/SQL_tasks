@@ -159,7 +159,7 @@ AND
 
 #19 
 
-select product.maker, sum(laptop.screen) / count(laptop.model)
+select product.maker, avg(laptop.screen)
 from product, laptop
 where product.type = ‘Laptop’
 and product.model = laptop.model
@@ -219,7 +219,7 @@ and p.maker = product.maker)
 
 27.
 
-select product.maker, sum(pc.hd) / count(*)
+select product.maker, avg(pc.hd)
 from product, pc
 where product.type = ‘PC’
 and product.model = pc.model
