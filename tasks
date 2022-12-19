@@ -167,7 +167,7 @@ group by product.maker
 
 #20
 
-select product.maker, count(*)
+select product.maker, count(*) as number_of_models
 from product
 where product.type = ‘PC’
 group by product.maker
@@ -183,9 +183,49 @@ group by product.maker
 
 #22
 
+Select speed, avg(price) from pc
+group by pc.speed
+having (speed>600)
 
 #23
+
+select distinct product.maker
+from product, pc
+where product.model = pc.model
+and product.type = ‘PC’
+and pc.speed >= 750
+and exists(select ‘x’ from laptop, product p
+where p.model = laptop.model
+and p.type = ‘Laptop’
+and p.maker = product.maker
+and laptop.speed >= 750)
+
 #24
+
 #25
+
+select distinct product.maker
+from product, pc
+where product.type = ‘PC’
+and product.model = pc.model
+and pc.ram = (select min(pcc.ram) from pc pcc where pcc.ram <> 0)
+and pc.speed = (select max(pccc.speed) from pc pccc
+where pccc.ram = (select min(pcc.ram) from pc pcc where pcc.ram <> 0))
+and exists(select ‘x’ from product p
+where p.type = ‘Printer’
+and p.maker = product.maker)
+
+#26
+
+27.
+
+select product.maker, sum(pc.hd) / count(*)
+from product, pc
+where product.type = ‘PC’
+and product.model = pc.model
+and exists(select ‘x’ from product p
+where p.maker = product.maker
+and p.type = ‘Printer’)
+group by product.maker
 
 
