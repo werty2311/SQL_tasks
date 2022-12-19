@@ -157,10 +157,33 @@ AND
     )
 
 
-#19
+#19 
+
+select product.maker, sum(laptop.screen) / count(laptop.model)
+from product, laptop
+where product.type = ‘Laptop’
+and product.model = laptop.model
+group by product.maker
+
 #20
+
+select product.maker, count(*)
+from product
+where product.type = ‘PC’
+group by product.maker
+having count(*) >= 3
+
 #21
+
+select product.maker, max(pc.price)
+from product, pc
+where product.model = pc.model
+and product.type = ‘PC’
+group by product.maker
+
 #22
+
+
 #23
 #24
 #25
